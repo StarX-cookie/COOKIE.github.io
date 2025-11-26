@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科技+艺术PBL课程设计师</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #ff6b6b;
+            --dark: #121212;
+            --light: #f8f9fa;
+            --gray: #2d2d2d;
+            --blue-tag: #2196F3;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 导航栏样式 */
+        header {
+            background-color: rgba(18, 18, 18, 0.9);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        /* 英雄区域样式 */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.1), rgba(37, 117, 252, 0.1));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 关于我样式 */
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #ccc;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* 技能展示样式 */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .skill-card {
+            background-color: var(--gray);
+            border-radius: 10px;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .skill-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .skill-card p {
+            color: #ccc;
+        }
+        
+        /* 经历样式 - 改为卡片式布局 */
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .experience-card {
+            background-color: var(--gray);
+            border-radius: 10px;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .experience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .experience-date {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .experience-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .experience-card p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+        
+        /* 项目展示样式 */
+        .projects-section {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .projects-slider {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: 30px;
+            padding: 20px 0;
+        }
+        
+        .project-card {
+            min-width: 350px;
+            background-color: var(--gray);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+        
+        .project-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .project-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .project-content p {
+            color: #ccc;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: auto;
+        }
+        
+        /* 修改：所有标签使用渐变色，蓝色偏多 */
+        .tag {
+            background: linear-gradient(to right, #1e88e5, #1565c0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            padding: 5px 0;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 15px;
+        }
+        
+        .slider-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .slider-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        /* 联系样式 - 移除表单 */
+        .contact-content {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background-color: var(--gray);
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .contact-details h3 {
+            margin-bottom: 5px;
+            font-size: 1.3rem;
+        }
+        
+        .contact-details p {
+            color: #ccc;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background-color: var(--gray);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .contact-content {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .experience-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">科技+艺术PBL</div>
+                <ul class="nav-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#about">关于我</a></li>
+                    <li><a href="#skills">技能</a></li>
+                    <li><a href="#experience">经历</a></li>
+                    <li><a href="#projects">项目</a></li>
+                    <li><a href="#contact">联系</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>科技+艺术PBL课程设计师</h1>
+                <p>十年创意教育实践者，研发PBL项目课程200+，专注于科技与艺术的融合创新教育</p>
+                <a href="#projects" class="btn">查看我的作品</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我 -->
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title">关于我</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>作为一名拥有十年经验的创意教育实践者，我致力于将科技与艺术融合到项目制学习中。通过设计思维和探究式学习方法，我帮助学生在实践中培养创新能力和解决问题的能力。</p>
+                    <p>我研发了200+个PBL项目课程，涵盖从编程、机械设计到数字艺术等多个领域。我坚信，科技与艺术的结合能够激发学生的创造力，培养他们成为未来的创新者。</p>
+                    <p>作为星与土俱乐部的教研负责人和童心制物的内容设计部负责人，我不断探索教育创新的边界，将前沿技术与艺术表达融入教学实践中。</p>
+                </div>
+                <div class="about-image">
+                    <!-- 这里可以放置个人照片 -->
+                    <div style="width:100%; height:400px; background:linear-gradient(135deg, #6a11cb, #2575fc); display:flex; align-items:center; justify-content:center; color:white; font-size:1.2rem;">
+                        个人照片区域
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技能展示 -->
+    <section class="section" id="skills">
+        <div class="container">
+            <h2 class="section-title">专业技能</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>PBL课程设计</h3>
+                    <p>精通PBL课程设计，设计思维和探究式学习方法，能够根据学生需求设计富有挑战性的项目。</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>艺术与设计</h3>
+                    <p>熟悉艺术史，了解各种艺术材料属性和加工工艺，能够将艺术元素融入科技项目中。</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>机械工程</h3>
+                    <p>掌握机械结构和传动原理，熟悉Fusion360、Blender等设计软件，能够设计复杂的机械结构。</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-print"></i>
+                    </div>
+                    <h3>数字制造</h3>
+                    <p>精通激光切割及CAD绘图，3D打印及建模，能够将数字设计转化为物理实体。</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>编程与生成艺术</h3>
+                    <p>熟悉Processing和生成艺术，能够通过编程创造独特的视觉艺术作品。</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3>投影艺术与电路设计</h3>
+                    <p>掌握3D Mapping、投影艺术和MAD mapping技术，具备PCB设计和嘉立创EDA使用经验。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 经历 - 改为卡片式布局 -->
+    <section class="section" id="experience">
+        <div class="container">
+            <h2 class="section-title">职业经历</h2>
+            <div class="experience-grid">
+                <div class="experience-card">
+                    <div class="experience-date">2023 - 至今</div>
+                    <h3>星与土俱乐部 - 教研负责人</h3>
+                    <p>负责PBL课程体系研发，带领团队设计跨学科项目课程，培训教师团队，推动创新教育实践。</p>
+                </div>
+                <div class="experience-card">
+                    <div class="experience-date">2023 - 至今</div>
+                    <h3>童心制物 - 内容设计部负责人</h3>
+                    <p>负责教育产品内容设计，整合科技与艺术元素，开发创新课程体系。</p>
+                </div>
+                <div class="experience-card">
+                    <div class="experience-date">2019 - 2022</div>
+                    <h3>API实验艺术创新教育机构 - 创始人</h3>
+                    <p>创立并运营专注于科技与艺术融合的创新教育机构，开发了一系列面向青少年的科创课程。</p>
+                </div>
+                <div class="experience-card">
+                    <div class="experience-date">2015 - 2019</div>
+                    <h3>科技+艺术PBL项目制教研负责人</h3>
+                    <p>在多所学校和机构担任PBL课程顾问，设计并实施科技与艺术融合的课程项目，培训教师团队。</p>
+                </div>
+                <div class="experience-card">
+                    <div class="experience-date">2013 - 2015</div>
+                    <h3>创意教育课程设计师</h3>
+                    <p>开始专注于PBL课程设计，将科技与艺术元素融入教育项目，积累了丰富的课程开发经验。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目展示 -->
+    <section class="section projects-section" id="projects">
+        <div class="container">
+            <h2 class="section-title">精典项目课程</h2>
+            <div class="projects-slider">
+                <div class="project-card">
+                    <div class="project-image">
+                        <div style="width:100%; height:100%; background:linear-gradient(45deg, #6a11cb, #2575fc); display:flex; align-items:center; justify-content:center; color:white;">
+                            项目图片1
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>机械昆虫设计与制作</h3>
+                        <p>结合机械原理与生物形态学，学生设计并制作能够运动的机械昆虫模型。</p>
+                        <div class="project-tags">
+                            <span class="tag">机械设计</span>
+                            <span class="tag">3D打印</span>
+                            <span class="tag">生物形态</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <div style="width:100%; height:100%; background:linear-gradient(45deg, #ff6b6b, #ffa726); display:flex; align-items:center; justify-content:center; color:white;">
+                            项目图片2
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>生成艺术与编程</h3>
+                        <p>通过Processing编程，学生创作基于算法的生成艺术作品，探索科技与艺术的交汇点。</p>
+                        <div class="project-tags">
+                            <span class="tag">编程</span>
+                            <span class="tag">生成艺术</span>
+                            <span class="tag">算法</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <div style="width:100%; height:100%; background:linear-gradient(45deg, #26c6da, #42a5f5); display:flex; align-items:center; justify-content:center; color:white;">
+                            项目图片3
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>互动投影装置</h3>
+                        <p>结合传感器技术与投影艺术，学生创作能够与人互动的光影装置作品。</p>
+                        <div class="project-tags">
+                            <span class="tag">投影艺术</span>
+                            <span class="tag">互动装置</span>
+                            <span class="tag">传感器</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <div style="width:100%; height:100%; background:linear-gradient(45deg, #66bb6a, #9ccc65); display:flex; align-items:center; justify-content:center; color:white;">
+                            项目图片4
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>智能可穿戴设备</h3>
+                        <p>学生设计并制作结合电子技术与纺织工艺的智能可穿戴设备。</p>
+                        <div class="project-tags">
+                            <span class="tag">电子技术</span>
+                            <span class="tag">可穿戴</span>
+                            <span class="tag">纺织工艺</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <div style="width:100%; height:100%; background:linear-gradient(45deg, #ab47bc, #ce93d8); display:flex; align-items:center; justify-content:center; color:white;">
+                            项目图片5
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>激光切割艺术</h3>
+                        <p>利用激光切割技术，学生创作复杂的几何图案和立体结构艺术作品。</p>
+                        <div class="project-tags">
+                            <span class="tag">激光切割</span>
+                            <span class="tag">几何艺术</span>
+                            <span class="tag">CAD设计</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <div class="slider-btn" id="prev-btn">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="slider-btn" id="next-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系 - 移除表单 -->
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="section-title">联系我</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>邮箱</h3>
+                            <p>contact@example.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>电话</h3>
+                            <p>+86 138 0000 0000</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>地址</h3>
+                            <p>北京市海淀区中关村</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">科技+艺术PBL</div>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-weixin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-weibo"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 科技+艺术PBL课程设计师. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 项目展示滑动功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.querySelector('.projects-slider');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+            const cardWidth = projectCards[0].offsetWidth + 30; // 包括gap
+            
+            let currentPosition = 0;
+            const maxPosition = -(projectCards.length - 3) * cardWidth;
+            
+            function updateSlider() {
+                slider.style.transform = `translateX(${currentPosition}px)`;
+            }
+            
+            nextBtn.addEventListener('click', function() {
+                if (currentPosition > maxPosition) {
+                    currentPosition -= cardWidth;
+                    updateSlider();
+                }
+            });
+            
+            prevBtn.addEventListener('click', function() {
+                if (currentPosition < 0) {
+                    currentPosition += cardWidth;
+                    updateSlider();
+                }
+            });
+            
+            // 平滑滚动导航
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
