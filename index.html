@@ -21,7 +21,7 @@
             --light: #f8f9fa;
             --gray: #2d2d2d;
             --blue-tag: #2196F3;
-            --glow-color: rgba(0, 191, 255, 0.5); /* 降低透明度 */
+            --glow-color: rgba(0, 191, 255, 0.5);
         }
         
         body {
@@ -112,15 +112,12 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            /* 优化后的发光效果 - 降低强度 */
             text-shadow: 
                 0 0 5px rgba(0, 191, 255, 0.3),
                 0 0 10px rgba(0, 191, 255, 0.2);
-            /* 更温和的脉冲动画 */
             animation: subtle-pulse 4s ease-in-out infinite;
         }
         
-        /* 更温和的脉冲动画 */
         @keyframes subtle-pulse {
             0%, 100% {
                 text-shadow: 
@@ -272,6 +269,10 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
         }
         
         .about-image img {
@@ -418,7 +419,6 @@
             margin-top: auto;
         }
         
-        /* 修改：所有标签使用渐变色，蓝色偏多 */
         .tag {
             background: linear-gradient(to right, #1e88e5, #1565c0);
             -webkit-background-clip: text;
@@ -653,10 +653,8 @@
                     <p>作为星与土俱乐部的教研负责人和童心制物的内容设计部负责人，我不断探索教育创新的边界，将前沿技术与艺术表达融入教学实践中。</p>
                 </div>
                 <div class="about-image">
-                    <!-- 这里可以放置个人照片 -->
-                    <div style="width:100%; height:400px; background:linear-gradient(135deg, #6a11cb, #2575fc); display:flex; align-items:center; justify-content:center; color:white; font-size:1.2rem;">
-                        个人照片区域
-                    </div>
+                    <!-- 替换这里的图片路径 -->
+                    <img src="images/profile.jpg" alt="个人照片" style="width:100%; height:400px; object-fit:cover;">
                 </div>
             </div>
         </div>
@@ -754,9 +752,8 @@
             <div class="projects-slider">
                 <div class="project-card">
                     <div class="project-image">
-                        <div style="width:100%; height:100%; background:linear-gradient(45deg, #6a11cb, #2575fc); display:flex; align-items:center; justify-content:center; color:white;">
-                            项目图片1
-                        </div>
+                        <!-- 替换这里的图片路径 -->
+                        <img src="images/project1.jpg" alt="机械昆虫设计与制作">
                     </div>
                     <div class="project-content">
                         <h3>机械昆虫设计与制作</h3>
@@ -770,9 +767,8 @@
                 </div>
                 <div class="project-card">
                     <div class="project-image">
-                        <div style="width:100%; height:100%; background:linear-gradient(45deg, #ff6b6b, #ffa726); display:flex; align-items:center; justify-content:center; color:white;">
-                            项目图片2
-                        </div>
+                        <!-- 替换这里的图片路径 -->
+                        <img src="images/project2.jpg" alt="生成艺术与编程">
                     </div>
                     <div class="project-content">
                         <h3>生成艺术与编程</h3>
@@ -786,9 +782,8 @@
                 </div>
                 <div class="project-card">
                     <div class="project-image">
-                        <div style="width:100%; height:100%; background:linear-gradient(45deg, #26c6da, #42a5f5); display:flex; align-items:center; justify-content:center; color:white;">
-                            项目图片3
-                        </div>
+                        <!-- 替换这里的图片路径 -->
+                        <img src="images/project3.jpg" alt="互动投影装置">
                     </div>
                     <div class="project-content">
                         <h3>互动投影装置</h3>
@@ -802,9 +797,8 @@
                 </div>
                 <div class="project-card">
                     <div class="project-image">
-                        <div style="width:100%; height:100%; background:linear-gradient(45deg, #66bb6a, #9ccc65); display:flex; align-items:center; justify-content:center; color:white;">
-                            项目图片4
-                        </div>
+                        <!-- 替换这里的图片路径 -->
+                        <img src="images/project4.jpg" alt="智能可穿戴设备">
                     </div>
                     <div class="project-content">
                         <h3>智能可穿戴设备</h3>
@@ -818,9 +812,8 @@
                 </div>
                 <div class="project-card">
                     <div class="project-image">
-                        <div style="width:100%; height:100%; background:linear-gradient(45deg, #ab47bc, #ce93d8); display:flex; align-items:center; justify-content:center; color:white;">
-                            项目图片5
-                        </div>
+                        <!-- 替换这里的图片路径 -->
+                        <img src="images/project5.jpg" alt="激光切割艺术">
                     </div>
                     <div class="project-content">
                         <h3>激光切割艺术</h3>
